@@ -4,7 +4,7 @@
 \alias{forecast.setartree}
 \title{Forecast method for SETAR-Tree fits}
 \usage{
-\method{forecast}{setartree}(object, newdata, h = 5, ...)
+\method{forecast}{setartree}(object, newdata, h = 5, level = c(80, 95), ...)
 }
 \arguments{
 \item{object}{An object of class \code{\link{setartree}} which is a trained SETAR-Tree model.}
@@ -12,6 +12,8 @@
 \item{newdata}{A list of time series which needs forecasts or a dataframe/matrix of new instances which need predictions.}
 
 \item{h}{The required number of forecasts (forecast horizon). This parameter is only required when \code{newdata} is a list of time series. Default value is 5.}
+
+\item{level}{Confidence level for prediction intervals. Default value is c(80, 95).}
 
 \item{...}{Other arguments.}
 }
@@ -21,12 +23,15 @@ The \code{plot} or \code{autoplot} functions in the R \code{forecast} package ca
 \item{method}{A vector containing the name of the forecasting method ("SETAR-Tree").}
 \item{forecast}{A list of objects of class \code{forecast}.
 Each list object is corresponding with a time series and its forecasts.
-Each list object contains 4 properties:
+Each list object contains 7 properties:
 method (the name of the forecasting method, SETAR-Tree, as a character string),
 x (the original time series),
-mean (point forecasts as a time series) and
-series (the name of the series as a character string).}
-If \code{newdata} is a dataframe/matrix, then a vector containing the prediction of each instance is returned.
+mean (point forecasts as a time series),
+series (the name of the series as a character string),
+upper (upper bound of confidence intervals),
+lower (lower bound of confidence intervals) and
+level (confidence level of prediction intervals).}
+If \code{newdata} is a dataframe/matrix, then a list containing the predictions, prediction intervals (upper and lower bounds), the size and standard deviations of the residuals of the models used to get each prediction is returned.
 }
 \description{
 Obtains forecasts for a given set of time series or a dataframe/matrix of new instances from a fitted SETAR-Tree model.

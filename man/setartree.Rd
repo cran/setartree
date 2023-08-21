@@ -13,6 +13,8 @@ setartree(
   significance_divider = 2,
   error_threshold = 0.03,
   stopping_criteria = "both",
+  mean_normalisation = FALSE,
+  window_normalisation = FALSE,
   verbose = 2,
   categorical_covariates = NULL
 )
@@ -34,6 +36,10 @@ setartree(
 
 \item{stopping_criteria}{The required stopping criteria: linearity test (lin_test), error reduction percentage (error_imp) or linearity test and error reduction percentage (both). Default value is \code{"both"}.}
 
+\item{mean_normalisation}{Whether each series should be normalised by deducting its mean value before building the tree. This parameter is only required when \code{data} is a list of time series. Default value is FALSE.}
+
+\item{window_normalisation}{Whether the window-wise normalisation should be applied before building the tree. This parameter is only required when \code{data} is a list of time series. When this is TRUE, each row of the training embedded matrix is normalised by deducting its mean value before building the tree. Default value is FALSE.}
+
 \item{verbose}{Controls the level of the verbosity of SETAR-Tree: 0 (errors/warnings), 1 (limited amount of information including the current tree depth), 2 (full training information including the current tree depth and stopping criterion results in each tree node). Default value is 2.}
 
 \item{categorical_covariates}{Names of the categorical covariates in the input data. This parameter is only required when \code{data} is a dataframe/matrix and it contains categorical variables.}
@@ -49,7 +55,10 @@ An object of class \code{\link{setartree}} which contains the following properti
 \item{num_leaves}{Number of leaf nodes in the SETAR-Tree.}
 \item{depth}{Depth of the SETAR-Tree which was determined based on the specified stopping criterion.}
 \item{leaf_instance_dis}{Number of instances used to train the regression models at each leaf node.}
+\item{stds}{The standard deviations of the residuals of each leaf node.}
 \item{categorical_covariate_values}{Information about the categorical covarites used during training (only if applicable).}
+\item{mean_normalisation}{Whether mean normalisation was applied for the training data.}
+\item{window_normalisation}{Whether window normalisation was applied for the training data.}
 \item{input_type}{Type of input data used to train the SETAR-Tree. This is \code{list} if \code{data} is a list of time series, and \code{df} if \code{data} is a dataframe/matrix containing model inputs.}
 \item{execution_time}{Execution time of SETAR-Tree.}
 }

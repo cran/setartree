@@ -18,6 +18,8 @@ setarforest(
   significance_divider = 2,
   error_threshold = 0.03,
   stopping_criteria = "both",
+  mean_normalisation = FALSE,
+  window_normalisation = FALSE,
   verbose = 2,
   categorical_covariates = NULL
 )
@@ -49,6 +51,10 @@ setarforest(
 
 \item{stopping_criteria}{The required stopping criteria for each SETAR-Tree in the forest: linearity test (lin_test), error reduction percentage (error_imp) or linearity test and error reduction percentage (both). Default value is \code{"both"}.}
 
+\item{mean_normalisation}{Whether each series should be normalised by deducting its mean value before building the forest. This parameter is only required when \code{data} is a list of time series. Default value is FALSE.}
+
+\item{window_normalisation}{Whether the window-wise normalisation should be applied before building the forest. This parameter is only required when \code{data} is a list of time series. When this is TRUE, each row of the training embedded matrix is normalised by deducting its mean value before building the forest. Default value is FALSE.}
+
 \item{verbose}{Controls the level of the verbosity of SETAR-Forest: 0 (errors/warnings), 1 (limited amount of information including the depth of the currently processing tree), 2 (full training information including the depth of the currently processing tree and stopping criterion related details in each tree). Default value is 2.}
 
 \item{categorical_covariates}{Names of the categorical covariates in the input data. This parameter is only required when \code{data} is a dataframe/matrix and it contains categorical variables.}
@@ -60,6 +66,8 @@ An object of class \code{\link{setarforest}} which contains the following proper
 \item{feature_names}{Names of the input features.}
 \item{coefficients}{Names of the coefficients of leaf node regresion models in each SETAR-Tree in the forest.}
 \item{categorical_covariate_values}{Information about the categorical covarites used during training (only if applicable).}
+\item{mean_normalisation}{Whether mean normalisation was applied for the training data.}
+\item{window_normalisation}{Whether window normalisation was applied for the training data.}
 \item{input_type}{Type of input data used to train the SETAR-Forest. This is \code{list} if \code{data} is a list of time series, and \code{df} if \code{data} is a dataframe/matrix containing model inputs.}
 \item{execution_time}{Execution time of SETAR-Forest.}
 }
