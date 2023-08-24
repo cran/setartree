@@ -21,6 +21,7 @@ setarforest(
   mean_normalisation = FALSE,
   window_normalisation = FALSE,
   verbose = 2,
+  num_cores = NULL,
   categorical_covariates = NULL
 )
 }
@@ -57,6 +58,8 @@ setarforest(
 
 \item{verbose}{Controls the level of the verbosity of SETAR-Forest: 0 (errors/warnings), 1 (limited amount of information including the depth of the currently processing tree), 2 (full training information including the depth of the currently processing tree and stopping criterion related details in each tree). Default value is 2.}
 
+\item{num_cores}{The number of cores to be used. \code{num_cores > 1} means parallel processing. When not provided, it will find the available number of cores and use those to run the SETAR-Trees in the forest in parallel.}
+
 \item{categorical_covariates}{Names of the categorical covariates in the input data. This parameter is only required when \code{data} is a dataframe/matrix and it contains categorical variables.}
 }
 \value{
@@ -77,13 +80,14 @@ Fits a SETAR-Forest model either using a list of time series or an embedded inpu
 \examples{
 \donttest{
 # Training SETAR-Forest with a list of time series
-setarforest(chaotic_logistic_series, bagging_freq = 2)
+setarforest(chaotic_logistic_series, bagging_freq = 2, num_cores = 1)
 
 # Training SETAR-Forest with a dataframe containing model inputs where the model inputs may contain
 # past time series lags and numerical/categorical covariates
 setarforest(data = web_traffic_train[,-1],
             label = web_traffic_train[,1],
             bagging_freq = 2,
+            num_cores = 1,
             categorical_covariates = "Project")
 }
 

@@ -39,13 +39,14 @@ Obtains forecasts for a given set of time series or a dataframe/matrix of new in
 \examples{
 \donttest{
 # Obtaining forecasts for a list of time series
-forest1 <- setarforest(chaotic_logistic_series, bagging_freq = 2)
+forest1 <- setarforest(chaotic_logistic_series, bagging_freq = 2, num_cores = 1)
 forecast(forest1, chaotic_logistic_series)
 
 # Obtaining forecasts for a set of test instances
 forest2 <- setarforest(data = web_traffic_train[,-1],
                        label = web_traffic_train[,1],
                        bagging_freq = 2,
+                       num_cores = 1,
                        categorical_covariates = "Project")
 forecast(forest2, web_traffic_test)
 }
